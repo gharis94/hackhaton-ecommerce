@@ -8,14 +8,17 @@ import { useRouter } from 'next/navigation';
 
 const NavComponent = () => {
   const {data:session,status}= useSession()
+  // const sesseion ={user:null}
+  // const status='loading'
   const [isOpen,setIsOpen] = useState(false)
   const router = useRouter();
-
-
+  
+  console.log('a')
   const handleNavigate=useCallback((path:string)=>{
     setIsOpen(false)
     router.push(path)
-  },[router])
+  },[])
+
   return (
     <nav className='w-full px-10 grid grid-cols-7 z-20 bg-white drop-shadow-lg h-[3rem] relative'>
         <div className='col-span-1 flex items-center cursor-pointer' onClick={()=>handleNavigate('/')}>Logo</div>
@@ -30,7 +33,7 @@ const NavComponent = () => {
         </div>
         <div className='col-span-2 flex items-center justify-evenly'>
           
-          <Cart/>
+          <Cart click={handleNavigate} user={session?.user?.name?.replaceAll(' ','')}/>
           <div className={`px-4 py-1 border-[1px] hover:border-primary rounded-full cursor-pointer `}>
             {
              status==='authenticated'? (

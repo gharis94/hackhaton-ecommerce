@@ -30,7 +30,7 @@ export default async function RootLayout({children}:{children:React.ReactNode}) 
   return (
     <html lang="en">
       <head/>
-      <body className={inter.className} >
+      <body className={inter.className} suppressHydrationWarning={true}>
         <Provider>
           <NavComponent/>
           {children}  

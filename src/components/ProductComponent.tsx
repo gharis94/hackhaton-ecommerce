@@ -6,31 +6,44 @@ import Image from 'next/image';
 import { toast } from 'react-hot-toast';
 
 
+type Props={
+  _id:string;
+  quantity:number;
+  price:number;
+  images:string[];
+  title:string
+}
 
 
-const ProductComponent = ({item}:{item:any}) => {
+const ProductComponent = ({item}:{item:Props}) => {
   const {data,status} = useSession();
 //  console.log(data)
   
   const handleToCart=useCallback(async()=>{
-    
-      if(status==='unauthenticated'){
-        console.log('a')
+   // console.log(status)
+      if(status==='unauthenticated' || status==='loading'){
+        
         toast.error('Please log in first')        
       }
     try{
         if(data?.user){
           console.log('b')
+          const toSend ={
+              user_id:data.user.name?.replaceAll(' ',''),
+              product_id:item._id,
+              quantity:1,
+              title:item.title,
+              image:item.images[0],
+              price:item.price
+            }
+            console.log(toSend)
           const rsp = await fetch('/api/cart',{
             method:'POST',
-            body:JSON.stringify({
-              user_id:data.user.email,
-              product_id:item._id,
-              quantity:1
-            })
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body:JSON.stringify(toSend)
           })
-          const result = await rsp.json()
-          console.log(result)
           if(rsp.ok){
             toast.success('Added to cart')
           }
@@ -39,7 +52,7 @@ const ProductComponent = ({item}:{item:any}) => {
       console.log(error.message)
     }
     
-  },[item])
+  },[data])
   return (
     <div className='h-[16rem] bg-white bg-opacity-30  backdrop-blur-lg drop-shadow-md w-[13rem] rounded-md overflow-hidden'>
         <div className='bg-black h-2/3 relative'>

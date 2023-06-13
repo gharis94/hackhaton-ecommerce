@@ -9,7 +9,7 @@ type Props={
 
 const Provider:React.FC<Props> = ({children}) => {
   return (
-    <SessionProvider >{children}</SessionProvider>
+    <SessionProvider refetchOnWindowFocus={false} >{children}</SessionProvider>
   )
 }
 
