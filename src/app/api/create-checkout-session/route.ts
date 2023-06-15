@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { ItemChild } from "sanity/desk";
 import Stripe from "stripe";
 //@ts-ignore
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -29,7 +30,8 @@ export const POST= async (req:NextRequest)=>{
         cancel_url:`${process.env.HOST}/failed`,
         metadata:{
             email,
-            images: JSON.stringify(items.map((item:any)=>item.image))
+            images: JSON.stringify(items.map((item:any)=>item.image)),
+            items:JSON.stringify(items.map((item:any)=>({title:item.title,img:item.image})))
         }
     })
 
