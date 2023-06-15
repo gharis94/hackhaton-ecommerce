@@ -1,4 +1,4 @@
-import {pgTable,varchar,integer,serial} from 'drizzle-orm/pg-core'
+import {pgTable,varchar,integer,serial, boolean} from 'drizzle-orm/pg-core'
 import {drizzle} from 'drizzle-orm/vercel-postgres';
 import {sql} from '@vercel/postgres'
 
@@ -13,5 +13,15 @@ export const cartTable=pgTable('carttable',{
     title:varchar('title',{length:255}).notNull()
 }
 )
+ export const orderTable = pgTable('ordertable',{
+    id:serial('id').primaryKey(),
+    email:varchar('email',{length:255}),
+    order_id:varchar('order_id',{length:255}),
+    payment_mode:varchar('payment_mode',{length:255}),
+    in_transit:boolean('in_transit'),
+    is_deliverd:boolean('in_transit'),
+    amount:integer('amount'),
+    items:varchar('items',{length:255})
+ })
 
 export const db = drizzle(sql);

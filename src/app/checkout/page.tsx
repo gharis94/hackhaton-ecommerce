@@ -15,15 +15,18 @@ type Props={
   title:string
 }
 //@ts-ignore
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+const fetcher = (...args) =>fetch(...args).then(res => res.json())
 
 const Checkout = () => {
-  const {data,error,isLoading} = useSWR('/api/cart?user_id=gharisqasim',fetcher)
   const {data:session,status} = useSession()
   const router = useRouter();
+  
   if(status==='unauthenticated'){
     router.replace('/')
   }
+  const {data,error,isLoading} = useSWR(`/api/cart?user_id=${session?.user?.email}`,fetcher)
+  
+console.log(data)
 const handleSubmit = async () => {
   // const newData = data.filter(item=>({title:item.title,price:item.price,image:item.image}))
   // Create a Checkout Session.
@@ -34,7 +37,7 @@ const handleSubmit = async () => {
         'Content-Type':'application/json'
       },
     body:JSON.stringify(
-    { items:data,email:'gharisbinqasim@gmail.com' })},
+    { items:data,email:session?.user?.email })},
   );
       console.log(checkoutSession)
   if ((checkoutSession as any).statusCode === 500) {
@@ -70,9 +73,12 @@ const handleSubmit = async () => {
             <div className='pt-4 space-y-2'>
               <Suspense fallback={<p>Loading..</p>}>
               {
-                !isLoading && data.map((item:any)=>(
+                !isLoading && data?.map((item:any)=>(
                   <CheckoutCard key={item.id} item={item}/>
                 ))
+                // :(
+                //   <p className='text-center pt-10 text-xl font-semibold'>Please add items to the basket</p>
+                // )
               }
               </Suspense>
             </div>

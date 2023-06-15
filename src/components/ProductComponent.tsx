@@ -29,7 +29,7 @@ const ProductComponent = ({item}:{item:Props}) => {
         if(data?.user){
           console.log('b')
           const toSend ={
-              user_id:data.user.name?.replaceAll(' ',''),
+              user_id:data.user.email,
               product_id:item._id,
               quantity:1,
               title:item.title,

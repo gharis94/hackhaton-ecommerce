@@ -1,8 +1,9 @@
 'use client'
-import React,{useCallback, useEffect, useMemo,useState} from 'react'
-import  {useRouter,usePathname}  from 'next/navigation'
+import React,{useMemo} from 'react'
+import  {usePathname}  from 'next/navigation'
 import ProductComponent from '@/components/ProductComponent';
 import { client } from '@/lib/client';
+import useSWR from 'swr';
 
 interface dataProps{
   
@@ -27,10 +28,10 @@ const getData=async(param:any)=>{
       slug,
       category->{category}
     } `
-    console.log(query)
+    //console.log(query)
     const rsp = await client.fetch(query)
     
-    console.log(rsp)
+    //console.log(rsp)
     return rsp
   }catch(error){
 
@@ -38,27 +39,18 @@ const getData=async(param:any)=>{
 }
 
 
-const Category = async() => {
-  const p = usePathname();
-  let heading = p?.slice(1);
-  const [state,setState] = useState([]);
+const Category = () => {
+  const path = usePathname();
+  let heading = path?.slice(1);
+  
 
-  console.log(heading)
-
-  const x:dataProps =useMemo(()=>{ 
+  const dataParam:dataProps =useMemo(()=>{ 
     console.log('rerender')
-    return(heading==='bestSeller'? ({bestSeller:true}): heading==='trending'?({trending:true}):({category:heading}))},[p])
-  console.log(x)
+    return(heading==='bestSeller'? ({bestSeller:true}): heading==='trending'?({trending:true}):({category:heading}))},[path])
+  
 
-  const data = await getData(x)
-  // useEffect(()=>{
-  //   const a={category:'',bestSeller:false,trending:true}
-  //   const dataFetct = async()=>{
-  //     const rsp=await getData(x)
-  //     setState(rsp)
-  //   };
-  //   dataFetct()
-  // },[])
+  //const data = await getData(x)
+  const {data,error,isLoading} = useSWR(dataParam,getData)
 
   
   return (
@@ -78,4 +70,4 @@ const Category = async() => {
   )
 }
 
-export default Category
+export default Category;

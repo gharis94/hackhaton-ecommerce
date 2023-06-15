@@ -5,15 +5,22 @@ import Cart from './Cart'
 import {useSession,signIn,signOut} from'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import useSWR from 'swr';
+import { client } from '@/lib/client';
+
+//@ts-ignore
+const fetcher = (...args) =>{
+    console.log(...args)
+  //@ts-ignore
+  return (client.fetch(...args))}
 
 const NavComponent = () => {
+  const {data,error,isLoading} = useSWR(`*[_type=='categories']{_id,category}`,fetcher)
   const {data:session,status}= useSession()
-  // const sesseion ={user:null}
-  // const status='loading'
   const [isOpen,setIsOpen] = useState(false)
   const router = useRouter();
   
-  console.log('a')
+  console.log(session)
   const handleNavigate=useCallback((path:string)=>{
     setIsOpen(false)
     router.push(path)
@@ -23,17 +30,16 @@ const NavComponent = () => {
     <nav className='w-full px-10 grid grid-cols-7 z-20 bg-white drop-shadow-lg h-[3rem] relative'>
         <div className='col-span-1 flex items-center cursor-pointer' onClick={()=>handleNavigate('/')}>Logo</div>
         <div className='col-span-2 flex justify-evenly items-center'> 
-          <p>category</p>
-          <p>category</p>
-          <p>category</p>
-          <p>category</p>
+          {!isLoading && data.map((item:{_id:string,category:string})=>(
+            <p onClick={()=>handleNavigate(item.category)} className='cursor-pointer hover:text-primary' key={item._id} >{item.category}</p>
+          ))}
         </div> 
         <div className='col-span-2 flex items-center w-full '>
           <Search/>
         </div>
         <div className='col-span-2 flex items-center justify-evenly'>
           
-          <Cart click={handleNavigate} user={session?.user?.name?.replaceAll(' ','')}/>
+          <Cart click={handleNavigate} user={session?.user?.email}/>
           <div className={`px-4 py-1 border-[1px] hover:border-primary rounded-full cursor-pointer `}>
             {
              status==='authenticated'? (

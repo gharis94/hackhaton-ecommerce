@@ -5,7 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 export const POST= async (req:NextRequest)=>{
     const {items,email} =await req.json();
-        console.log(items)
+        
     const transformedItems=items.map((item:any)=>({
         price_data:{
             currency:'gbp',
@@ -32,6 +32,6 @@ export const POST= async (req:NextRequest)=>{
             images: JSON.stringify(items.map((item:any)=>item.image))
         }
     })
-    console.log(session)
+
     return NextResponse.json(session)
 }

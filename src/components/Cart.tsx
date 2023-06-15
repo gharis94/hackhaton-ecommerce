@@ -1,16 +1,23 @@
 'use client'
-import React,{ useCallback, useState} from 'react'
+import React,{ useCallback, useEffect, useState} from 'react'
 import {AiOutlineShopping} from 'react-icons/ai';
 import useSWR from 'swr'
 import toast from 'react-hot-toast'
 
 //@ts-ignore
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+const getCount = (...args) => fetch(...args).then(res => res.json())
 
 
-const Cart =({click,user}:{click:any,user:string|undefined}) => {
-  const [quantity,setQuantity] = useState(0); 
-  const {data,error,isLoading} = useSWR(`/api/cart?user_id=${user}`,fetcher) 
+const Cart =({click,user}:{click:any,user:string|null|undefined}) => {
+  const {data,error,isLoading} = useSWR(`/api/cart?user_id=${user}`,getCount) 
+  const [quantity,setQuantity] = useState(0);
+
+  useEffect(()=>{
+    if(Array.isArray(data) ){
+      console.log(data.length)
+      setQuantity(data.length)
+    }
+  },[data])
 
   const handleClick=useCallback(()=>{
     if(user === undefined){
@@ -24,7 +31,7 @@ const Cart =({click,user}:{click:any,user:string|undefined}) => {
   return (
     <div className='relative cursor-pointer' onClick={()=>handleClick()}>
       <AiOutlineShopping size={28}/>
-      <span className='absolute top-0 right-0 px-1 py-1 bg-primary rounded-full text-[0.4rem]'>{quantity }</span>
+      <span className='absolute top-0 right-0 px-1 py-1 bg-primary rounded-full text-[0.4rem]'>{quantity}</span>
     </div>
   )
 }
