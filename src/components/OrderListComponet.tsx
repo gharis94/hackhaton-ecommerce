@@ -22,7 +22,7 @@ const OrderListComponet:React.FC<Props> = ({amount,items,in_transit,is_delivered
               <div className='col-span-2 px-2 gap-2'>
                 {
                     items.map(item=>(
-                        <div className='flex flex-start  items-center space-y-2 space-x-2'>
+                        <div key={item.img} className='flex flex-start  items-center space-y-2 space-x-2'>
                             <div className='relative h-[4rem] mt-2 w-[4rem] overflow-hidden rounded-md'>
                                 <Image src={item.img} alt='image' fill/>
                             </div>
