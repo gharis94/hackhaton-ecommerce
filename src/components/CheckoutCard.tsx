@@ -16,7 +16,7 @@ const CheckoutCard = ({item}:{item:Props}) => {
     
     const handleDelete =useCallback(async(id:number)=>{
         const query =`/api/cart?product_id=${id}`
-        console.log(query)
+        
         try{
             const rsp = await fetch(query,{
                 method:'DELETE',

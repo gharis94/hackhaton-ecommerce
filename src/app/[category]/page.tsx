@@ -30,10 +30,8 @@ const getData=async(param:any)=>{
       slug,
       category->{category}
     } `
-    //console.log(query)
     const rsp = await client.fetch(query)
     
-    //console.log(rsp)
     return rsp
   }catch(error:any){
     console.log(error.message)

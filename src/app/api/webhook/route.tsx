@@ -12,14 +12,12 @@ export async function POST(req: Request){
     const payload = await req.text()
     
     const sig = req.headers.get('stripe-signature') as string
-    //console.log("sig: ", sig)
 
     let event;
 
-   // const endpointSecret = process.env.WEBHOOK_SECRET_LOCAL as string
 
     try {
-        console.log("constructing event...")
+
         event = stripe.webhooks.constructEvent(payload, sig, webhookSecret)
     } catch (error) {
         console.error(error)
@@ -43,17 +41,10 @@ export async function POST(req: Request){
 
       try{
         const rsp = await db.insert(orderTable).values(p)
-        console.log('success')
       }catch(error:any){
         console.log(error.message)
       }
 
-      //console.log(data.metadata)
-      //@ts-ignore
-      // stripe.customers.retrieve(data.id).then((customer)=>{
-      //   console.log(customer)
-      //   console.log('data:',data)
-      // }).catch((err)=>console.log(err.message))
     }
 
   return new Response("payment confirmation route received", {

@@ -10,7 +10,7 @@ import { client } from '@/lib/client';
 
 //@ts-ignore
 const fetcher = (...args) =>{
-    console.log(...args)
+    
   //@ts-ignore
   return (client.fetch(...args))}
 

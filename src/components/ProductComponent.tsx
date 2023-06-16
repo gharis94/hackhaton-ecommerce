@@ -17,17 +17,16 @@ type Props={
 
 const ProductComponent = ({item}:{item:Props}) => {
   const {data,status} = useSession();
-//  console.log(data)
+
   
   const handleToCart=useCallback(async()=>{
-   // console.log(status)
       if(status==='unauthenticated' || status==='loading'){
         
         toast.error('Please log in first')        
       }
     try{
         if(data?.user){
-          console.log('b')
+
           const toSend ={
               user_id:data.user.email,
               product_id:item._id,
@@ -36,7 +35,6 @@ const ProductComponent = ({item}:{item:Props}) => {
               image:item.images[0],
               price:item.price
             }
-            console.log(toSend)
           const rsp = await fetch('/api/cart',{
             method:'POST',
             headers:{

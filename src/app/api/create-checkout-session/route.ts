@@ -18,7 +18,7 @@ export const POST= async (req:NextRequest)=>{
         },
         quantity:item.quantity
     }))
-    //console.log('transformed',transformedItems)
+
     const session = await stripe.checkout.sessions.create({
         payment_method_types:['card'],
         shipping_address_collection:{

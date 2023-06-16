@@ -38,15 +38,15 @@ const Orders:React.FC = () => {
   const [list,setList] = useState<ListProps[]>([])
   useEffect(()=>{
     if(data){
-      console.log(data)
+
       const updated =data.reduce((acc:any,cur:any)=>{
             acc=[...acc,{...cur,items:JSON.parse(cur.items)}]
             return acc
         },[])
         setList(updated)
-        console.log(updated)
+
     }
-    // console.log('a')
+
   },[data])
   
   

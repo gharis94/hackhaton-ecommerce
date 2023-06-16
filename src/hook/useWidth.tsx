@@ -1,7 +1,7 @@
 import {useEffect,useState} from 'react'
 
 const useWidth = () => {
-  const [width,setWidth] = useState(window?window.innerWidth:0);
+  const [width,setWidth] = useState(0);
 
   useEffect(()=>{
     const fn=()=>{

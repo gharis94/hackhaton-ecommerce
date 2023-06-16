@@ -26,7 +26,7 @@ const Checkout = () => {
   }
   const {data,error,isLoading} = useSWR(`/api/cart?user_id=${session?.user?.email}`,fetcher)
   
-console.log(data)
+
 const handleSubmit = async () => {
   // const newData = data.filter(item=>({title:item.title,price:item.price,image:item.image}))
   // Create a Checkout Session.
@@ -39,13 +39,12 @@ const handleSubmit = async () => {
     body:JSON.stringify(
     { items:data,email:session?.user?.email })},
   );
-      console.log(checkoutSession)
+
   if ((checkoutSession as any).statusCode === 500) {
     console.error((checkoutSession as any).message);
     return;
   }
   const rsp = await checkoutSession.json()
-  console.log(rsp.id)
   // Redirect to Checkout.
   const stripe = await getStripe();
   const { error } = await stripe!.redirectToCheckout({

@@ -19,7 +19,7 @@ const BannerImage:React.FC<Props> = ({img,onRight,primaryText,secondaryText,isDa
             className={`absolute 
             ${onRight?'right-10':'left-6'}
             ${isDarkFont?'text-black':'text-white'} 
-            top-1/3 space-y-3 `}>
+            sm:top-1/3 space-y-3  top-2/3`}>
             <h2 className='sm:text-2xl md:text-4xl font-extrabold'>{primaryText}</h2>
             <h2 className='sm:text-xl md:text-2xl font-extrabold'>{secondaryText}</h2>
             <Link href={link}>
