@@ -61,40 +61,36 @@ const handleSubmit = async () => {
 };
 
   return (
-    <>
-        <div className='grid grid-cols-1 sm:grid-cols-6 px-4 pt-10 '>
-          <div className='sm:col-span-4  h-full'> 
-            <div className='grid place-items-center grid-cols-5 pb-2 border-b-2 border-b-primary/50 text-xl font-semibold'>
+    <div className='sm:px-10'>
+        <div className='grid grid-cols-1 md:grid-cols-6 min-h-[50vh] gap-2 pt-10 '>
+          <div className='sm:col-span-4 bg-white drop-shadow-md  h-full'> 
+            <div className='grid place-items-center grid-cols-5 pb-2 border-b-2 border-b-primary/50 texl-lg md:text-xl font-semibold'>
               <p className='col-span-2'>Description</p>
               <p className='col-span-1'>Qty</p>
               <p className='col-span-1'>Price</p>
               <p className='col-span-1'>Sub-Total</p>
             </div>
-            <div className='pt-4 space-y-2'>
-              <Suspense fallback={<p>Loading..</p>}>
+            <div className='pt-4 px-4 space-y-4'>
               {
                 !isLoading && data?.map((item:any)=>(
                   <CheckoutCard key={item.id} item={item}/>
                 ))
-                // :(
-                //   <p className='text-center pt-10 text-xl font-semibold'>Please add items to the basket</p>
-                // )
+
               }
-              </Suspense>
+
             </div>
           </div>
-          <div className='sm:col-span-2 px-4'>
-            <h1>Checkout</h1>
+          <div className='md:col-span-2 max-h-[10rem] flex flex-col justify-between pb-10 px-8 bg-white rounded-md drop-shadow-md'> 
+            <h1 className='text-center text-2xl pt-6'>Checkout</h1>
             {!isLoading &&
               <button role='link' 
-                onClick={()=>handleSubmit()} className='w-full bg-primary'>
+                onClick={()=>handleSubmit()} className='w-full  rounded-md bg-primary'>
                 Check Out
               </button>
-              
             }
           </div>
         </div>
-    </>
+    </div>
   )
 }
 

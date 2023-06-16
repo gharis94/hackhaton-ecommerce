@@ -10,7 +10,7 @@ const MainComponent = () => {
     router.push(param)
   },[])
   return (
-    <div className='grid grid-cols-3 grid-rows-2 gap-4 h-[80vh] '>
+    <div className='grid grid-cols-3 grid-rows-2 gap-4 h-[40vh] sm:h-[80vh] '>
         <div className='col-span-1 row-span-2 relative overflow-hidden rounded-md drop-shadow-md cursor-pointer' onClick={()=>handleRoute('Shoes')}>
           <Image src='https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80' alt='picture' fill/>
           <div className='absolute bg-opacity-0 h-full w-full transition-all duration-300 hover:bg-opacity-80 bg-primary inset-0 flex justify-center items-center group'>
