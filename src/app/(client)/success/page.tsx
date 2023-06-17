@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import {TiTick} from 'react-icons/ti'
 
 
-const page = () => {
+const Success = () => {
     const router = useRouter()
     const {data:session,status} = useSession()
     useEffect(()=>{
@@ -43,4 +43,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Success

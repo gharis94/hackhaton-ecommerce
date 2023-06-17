@@ -4,7 +4,7 @@ import React from 'react'
 import {GiCancel} from 'react-icons/gi'
 
 
-const page = () => {
+const Failed = () => {
     const router = useRouter()
   return (
     <div className='h-screen w-screen flex justify-center items-center'>
@@ -23,4 +23,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Failed

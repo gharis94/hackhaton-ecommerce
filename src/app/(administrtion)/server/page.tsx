@@ -16,7 +16,7 @@ type Props={
 //@ts-ignore
 const fetcher =(...args)=>fetch(...args).then(res=>res.json());
 
-const page = () => {
+const Server = () => {
     const router = useRouter();
     const {logIn} = useContext(ServerSideContext);
     
@@ -90,4 +90,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Server

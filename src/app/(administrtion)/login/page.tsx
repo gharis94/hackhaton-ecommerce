@@ -9,7 +9,7 @@ type Props={
     password:string;
 }
 
-const page = () => {
+const Login = () => {
     const [state,setState] = useState<Props>({user:'',password:''})
     const {fn} = useContext(ServerSideContext)
     const router = useRouter()
@@ -58,4 +58,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Login
