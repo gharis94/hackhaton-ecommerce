@@ -45,7 +45,7 @@ const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd}) => {
     },[id])
 
   return (
-    <div className='grid grid-cols-4'>
+    <div className='grid grid-cols-5'>
         <div className='col-span-2 ' >
             {state.length>0 && state.map((x:any)=>(
                 <div key={x.img} className='flex  items-center space-x-2'>
@@ -77,6 +77,9 @@ const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd}) => {
                 type='checkbox'
                 onChange={(e)=>handleCheck(e)}
                 />
+            </div>
+            <div className='flex justify-center items-center'>
+                <p>{!in_transit && !is_deliverd? 'pickup in progress..':in_transit && !is_deliverd?'in transit..':'Deliverd'}</p>
             </div>
     </div>
     

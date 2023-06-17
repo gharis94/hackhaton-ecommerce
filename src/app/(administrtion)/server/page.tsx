@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import useSWR from 'swr';
 import HeadComponent from '@/components/administration/HeadComponent';
 import ListComponent from '@/components/administration/ListComponent';
@@ -19,14 +19,14 @@ const fetcher =(...args)=>fetch(...args).then(res=>res.json());
 const Server = () => {
     const router = useRouter();
     const {logIn} = useContext(ServerSideContext);
-    
-    if(!logIn){
-        router.replace('/login')
-    }
     const {data,error,isLoading} = useSWR('/api/orders?user_id=admin_1232',fetcher)
     // const [state,setState] = useState<Props>({placed:0,in_transit:0,is_deliverd:0})
     // console.log(data)
-
+    useEffect(()=>{
+        if(!logIn){
+            router.replace('/login')
+        }
+    },[logIn])
 
     const placed = useMemo(()=>{
         console.log('placed')
@@ -71,10 +71,11 @@ const Server = () => {
                 <HeadComponent text='Total Order Deliverd' count={deliverd} color='bg-primary/50' />
             </div>
             <div className='h-4/5'>
-                <div className='grid grid-cols-4 place-items-center pt-4 pb-2 border-b-[1px] border-neutral-400 ml-4 mr-4'>
+                <div className='grid grid-cols-5 place-items-center pt-4 pb-2 border-b-[1px] border-neutral-400 ml-4 mr-4'>
                     <p className='col-span-2'>Description</p>
                     <p className='col-span-1'>Transit</p>
                     <p className='col-span-1'>Deliverd</p>
+                    <p className='col-span-1'>Stattus</p>
                 </div>
                 <div className='overflow-y-scroll scrollbar-thin'>
                     {
