@@ -6,15 +6,32 @@ import { eq } from "drizzle-orm";
 export async function GET(req:NextRequest){
     const user_id = req.nextUrl;
     const param =user_id.searchParams.get('user_id') as string
+    if(param !== 'admin_1232'){
+        try{
+            const rsp = await db.select().from(orderTable).where(eq(orderTable.email,param))
+            return NextResponse.json(rsp)
+        }catch(err:any){
+            console.log(err.message)
+        }
+    }else{
+        try{
+            const rsp = await db.select().from(orderTable)
+            return NextResponse.json(rsp)
+        }catch(error:any){
+            console.log(error.message)
+        }
+    }
+}
+
+export  const PUT =async(req:NextRequest)=>{
+    
     try{
-        const rsp = await db.select().from(orderTable).where(eq(orderTable.email,param))
-        // const updated =await rsp.reduce((acc:any,cur:any)=>{
-        //     acc=[...acc,{...cur,items:JSON.parse(cur.items)}]
-        //     return acc
-        // },[])
-        // console.log(updated)
-        return NextResponse.json(rsp)
+        const data= await req.json()
+        const res= await db.update(orderTable).set({[data.key]:data.value}).where(eq(orderTable.id,data.id))
+
+        return NextResponse.json(res)
     }catch(err:any){
         console.log(err.message)
     }
+
 }

@@ -14,7 +14,7 @@ type ListProps={
     id?:number;
     email?:string;
     in_transit:boolean;
-    is_delivered:boolean;
+    is_deliverd:boolean;
     items:{
      img:string;
      title:string;   
@@ -38,7 +38,6 @@ const Orders:React.FC = () => {
   const [list,setList] = useState<ListProps[]>([])
   useEffect(()=>{
     if(data){
-
       const updated =data.reduce((acc:any,cur:any)=>{
             acc=[...acc,{...cur,items:JSON.parse(cur.items)}]
             return acc
@@ -48,8 +47,8 @@ const Orders:React.FC = () => {
     }
 
   },[data])
-  
-  
+
+
   const handleTabClick=useCallback((tab:'placed' | 'transit' | 'deliverd')=>{
     setState({tabState:tab})
   },[])
@@ -72,8 +71,8 @@ const Orders:React.FC = () => {
             </div>
             <div className='overflow-y-scroll h-5/6 scrollbar-thumb-primary scrollbar-thin  scrollbar-track-transparent draggable '>
             {
-               list?.length>0 && list.filter(item=>state.tabState==='placed'? !item.in_transit && !item.is_delivered:state.tabState==='transit'? item.in_transit:item.is_delivered).map((item)=>(
-                <OrderListComponet key={item.id} payment_mode={item.payment_mode} is_delivered={item.is_delivered} in_transit={item.in_transit} items={item.items} amount={item.amount}/>
+               list?.length>0 && list.filter(item=>state.tabState==='placed'? (!item.in_transit && !item.is_deliverd):state.tabState==='transit'? (item.in_transit && !item.is_deliverd):state.tabState==='deliverd'? item.is_deliverd: '').map((item)=>(
+                <OrderListComponet key={item.id} payment_mode={item.payment_mode} is_delivered={item.is_deliverd} in_transit={item.in_transit} items={item.items} amount={item.amount}/>
               ))
             }
             </div>
