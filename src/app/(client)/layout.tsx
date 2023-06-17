@@ -1,5 +1,5 @@
 import NavComponent from '@/components/NavComponent'
-import './globals.css'
+import '../globals.css'
 import { Inter } from 'next/font/google'
 import Provider from '@/components/Provider'
 //import {Session, getServerSession} from 'next-auth';

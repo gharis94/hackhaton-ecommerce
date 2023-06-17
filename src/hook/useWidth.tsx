@@ -1,11 +1,15 @@
+'use client'
 import {useEffect,useState} from 'react'
 
 const useWidth = () => {
   const [width,setWidth] = useState(0);
 
   useEffect(()=>{
-    const fn=()=>{
+        const fn=()=>{
         setWidth(window.innerWidth);
+    }
+    if(window !== undefined){
+        fn()
     }
     window.addEventListener('resize',fn);
 
