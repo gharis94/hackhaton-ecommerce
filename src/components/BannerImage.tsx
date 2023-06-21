@@ -13,8 +13,8 @@ type Props={
 
 const BannerImage:React.FC<Props> = ({img,onRight,primaryText,secondaryText,isDarkFont,link}) => {
   return (
-    <div className='h-[70vh] w-full relative object-cover'>
-        <Image src={img} alt='banner' fill/>
+    <div className='h-[50vh] sm:h-[70vh] w-full relative object-cover'>
+        <Image className='object-cover' src={img} alt='banner' fill/>
         <div 
             className={`absolute 
             ${onRight?'right-10':'left-6'}

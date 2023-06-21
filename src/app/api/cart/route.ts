@@ -16,7 +16,6 @@ export const GET=async(req:NextRequest)=>{
 }
 export const POST=async(req:NextRequest)=>{
     const data = await req.json()
-    
     try{
         const rsp = await db.insert(cartTable).values(data).returning()
         return NextResponse.json({rsp})

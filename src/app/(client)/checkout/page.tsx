@@ -1,10 +1,11 @@
 'use client'
-import React,{ useState,Suspense} from 'react'
-import { useSession } from 'next-auth/react'
+import React, { useContext } from 'react'
+//import { useSession } from 'next-auth/react'
 import CheckoutCard from '@/components/CheckoutCard'
 import getStripe from '@/lib/stripe'
 import useSWR from 'swr'
 import { useRouter } from 'next/navigation'
+import { CartContext } from '@/context/CartContext'
 
 type Props={
   product_id:string;
@@ -18,13 +19,14 @@ type Props={
 const fetcher = (...args) =>fetch(...args).then(res => res.json())
 
 const Checkout = () => {
-  const {data:session,status} = useSession()
+  //const {data:session,status} = useSession()
+  const {data,status,session,isLoading} = useContext(CartContext)
   const router = useRouter();
   
   if(status==='unauthenticated'){
     router.replace('/')
   }
-  const {data,error,isLoading} = useSWR(`/api/cart?user_id=${session?.user?.email}`,fetcher)
+  //const {data,error,isLoading} = useSWR(`/api/cart?user_id=${session?.user?.email}`,fetcher)
   
 
 const handleSubmit = async () => {

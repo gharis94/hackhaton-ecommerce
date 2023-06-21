@@ -22,12 +22,13 @@ const SliderComponent:React.FC<Props> = ({data}) => {
   return (
     <Swiper
         className='mt-2'
-        spaceBetween={30}
+        spaceBetween={10}
+        
         slidesPerView={width<450? 1: width<550?2: width<800? 3:4}          
         >
           {
             data.length>0 && data?.map((item:any)=>(
-              <SwiperSlide key={item._id}>
+              <SwiperSlide style={{display:'flex',justifyContent:'center'}} key={item._id}>
                 <ProductComponent  item={item}/>
               </SwiperSlide>    
             ))

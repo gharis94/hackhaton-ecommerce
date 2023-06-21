@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import {AiOutlineSearch} from 'react-icons/ai'
+//import {AiOutlineSearch} from 'react-icons/ai'
 
 const Search = ({input,set}:any) => {
   return (

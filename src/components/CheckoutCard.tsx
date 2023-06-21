@@ -2,7 +2,9 @@
 import React, { useCallback } from 'react';
 import Image from 'next/image';
 import {MdCancel} from 'react-icons/md';
-import {BiRightArrow,BiLeftArrow} from 'react-icons/bi'
+import { toast } from 'react-hot-toast';
+//import {BiRightArrow,BiLeftArrow} from 'react-icons/bi'
+import { useRouter } from 'next/navigation';
 
 
 type Props={
@@ -16,6 +18,7 @@ type Props={
 const CheckoutCard = ({item}:{item:Props}) => {    
     const {title,price,quantity,image,id} = item  
     console.log(id)
+    const router = useRouter()
     const handleDelete =useCallback(async(id:number)=>{
         const query =`/api/cart?product_id=${id}`
         
@@ -24,7 +27,8 @@ const CheckoutCard = ({item}:{item:Props}) => {
                 method:'DELETE',
             })
            if(rsp.status===200){
-            
+            toast.remove('Removed')
+            router.refresh()
            }
         }catch(error:any){
             console.log('client',error.message)
