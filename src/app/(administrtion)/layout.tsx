@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { ServerSideProvider } from '@/context/ServerSideContext'
-
+import { Toaster } from 'react-hot-toast'
 
 
 
@@ -12,11 +12,12 @@ export default function AdminLayout({
 }) {
   return (
 
-      <div>
-       <ServerSideProvider>
-        {children}
-       </ServerSideProvider>
-      </div>
- 
+      
+  <ServerSideProvider>
+  {children}
+  <Toaster/>
+  </ServerSideProvider>
+
+     
   )
 }

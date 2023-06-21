@@ -19,7 +19,8 @@ type stateProps={
   data?:any
   status?:any
   session?:any
-  isLoading?:any
+  isLoading?:any,
+  handleDelete?:any
 }
 
 const state={
@@ -53,7 +54,7 @@ export const CartProvider = ({children}:{children:any})=>{
 
 
       const handleToCart=useCallback(async(item:Props)=>{
-          console.log('add')
+          
         if(status==='unauthenticated' || status==='loading'){
         
         toast.error('Please log in first')        
@@ -88,8 +89,24 @@ export const CartProvider = ({children}:{children:any})=>{
     }
     
   },[data])
+
+  const handleDelete =useCallback(async(id:number)=>{
+        const query =`/api/cart?product_id=${id}`
+        //console.log('del')
+        try{
+            const rsp = await fetch(query,{
+                method:'DELETE',
+            })
+           // console.log(rsp)
+           toast.error('Removed')
+           mutate()
+        }catch(error:any){
+            console.log('client',error.message)
+        }
+    },[data])
+
     return(
-        <CartContext.Provider value={{quantity,handleToCart,data,status,session,isLoading}}>
+        <CartContext.Provider value={{quantity,handleToCart,data,status,session,isLoading,handleDelete}}>
             {children}
         </CartContext.Provider>
     )
