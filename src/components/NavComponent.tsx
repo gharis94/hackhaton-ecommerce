@@ -1,6 +1,6 @@
 'use client'
 import React, { useCallback, useState } from 'react'
-import Search from './Search'
+//import Search from './Search'
 import Cart from './Cart'
 import {useSession,signIn,signOut} from'next-auth/react';
 import Image from 'next/image';
@@ -20,7 +20,7 @@ const NavComponent = () => {
   const [isOpen,setIsOpen] = useState(false)
   const router = useRouter();
   
-  console.log(session)
+  // console.log(session)
   const handleNavigate=useCallback((path:string)=>{
     setIsOpen(false)
     router.push(path)

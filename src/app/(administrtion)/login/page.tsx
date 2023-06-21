@@ -1,5 +1,5 @@
 'use client'
-import { ServerSideContext } from '@/app/context/ServerSideContext';
+import { ServerSideContext } from '@/context/ServerSideContext'
 import { useRouter } from 'next/navigation';
 import React,{useContext, useState} from 'react'
 
@@ -11,7 +11,7 @@ type Props={
 
 const Login = () => {
     const [state,setState] = useState<Props>({user:'',password:''})
-    const {fn} = useContext(ServerSideContext)
+    const {logInFn} = useContext(ServerSideContext)
     const router = useRouter()
 
     const handleChange=(e:React.ChangeEvent<HTMLElement>)=>{
@@ -23,7 +23,7 @@ const Login = () => {
         e.preventDefault()
         
         if(state.user==='admin' && state.password==='admin'){
-            fn()
+            logInFn()
             router.push('/server')
         }
     }

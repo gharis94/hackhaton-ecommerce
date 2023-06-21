@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
 import {Swiper,SwiperSlide} from 'swiper/react'
-import Image from 'next/image'
+//import Image from 'next/image'
 
 import 'swiper/css'
-import "swiper/css/effect-fade";
-import "swiper/css/navigation";
+//import "swiper/css/effect-fade";
+//import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { EffectFade, Navigation, Pagination,Autoplay } from "swiper";
@@ -13,7 +13,7 @@ import BannerImage from './BannerImage'
 
 const Banner = () => {
   return (
-    <div className='w-full mt-2  rounded-md overflow-hidden'>
+    <div className='w-full sm:mt-2  sm:rounded-md overflow-hidden'>
       <Swiper
         spaceBetween={0}
         slidesPerView={1}

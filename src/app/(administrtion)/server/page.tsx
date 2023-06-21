@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import HeadComponent from '@/components/administration/HeadComponent';
 import ListComponent from '@/components/administration/ListComponent';
 import { useRouter } from 'next/navigation';
-import { ServerSideContext } from '@/app/context/ServerSideContext';
+import { ServerSideContext } from '@/context/ServerSideContext'
 
 
 type Props={

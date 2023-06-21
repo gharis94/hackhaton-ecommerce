@@ -4,8 +4,8 @@ import  {usePathname}  from 'next/navigation'
 import ProductComponent from '@/components/ProductComponent';
 import { client } from '@/lib/client';
 import useSWR from 'swr';
-import CategoryComponent from '@/components/CategoryComponent';
-import Search from '@/components/Search';
+//import CategoryComponent from '@/components/CategoryComponent';
+//import Search from '@/components/Search';
 
 interface dataProps{
   

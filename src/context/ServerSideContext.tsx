@@ -2,7 +2,7 @@
 import { ReactNode, createContext,useState } from "react";
 
 
-export const ServerSideContext = createContext({logIn:false,fn:()=>{}});
+export const ServerSideContext = createContext({logIn:false,logInFn:()=>{}});
 
 
 export const ServerSideProvider =({children}:{children:ReactNode})=>{
@@ -12,7 +12,7 @@ export const ServerSideProvider =({children}:{children:ReactNode})=>{
         setLog(true)
     }
     return(
-        <ServerSideContext.Provider value={{logIn:log,fn:logInFn}}>
+        <ServerSideContext.Provider value={{logIn:log,logInFn:logInFn}}>
             {children}
         </ServerSideContext.Provider>
     )
