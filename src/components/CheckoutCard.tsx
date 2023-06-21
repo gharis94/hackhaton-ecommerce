@@ -1,10 +1,11 @@
 'use client'
-import React, { useCallback } from 'react';
+import React, { useCallback,useContext } from 'react';
 import Image from 'next/image';
 import {MdCancel} from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 //import {BiRightArrow,BiLeftArrow} from 'react-icons/bi'
 import { useRouter } from 'next/navigation';
+import { CartContext } from '@/context/CartContext';
 
 
 type Props={
@@ -17,23 +18,26 @@ type Props={
 
 const CheckoutCard = ({item}:{item:Props}) => {    
     const {title,price,quantity,image,id} = item  
-    console.log(id)
+    const {handleDelete} = useContext(CartContext)
     const router = useRouter()
-    const handleDelete =useCallback(async(id:number)=>{
-        const query =`/api/cart?product_id=${id}`
-        
-        try{
-            const rsp = await fetch(query,{
-                method:'DELETE',
-            })
-           if(rsp.status===200){
-            toast.remove('Removed')
-            router.refresh()
-           }
-        }catch(error:any){
-            console.log('client',error.message)
-        }
-    },[id])
+    // const handleDelete =useCallback(async(id:number)=>{
+    //     const query =`/api/cart?product_id=${id}`
+    //     console.log('del')
+    //     try{
+    //         const rsp = await fetch(query,{
+    //             method:'DELETE',
+    //         })
+    //         console.log(rsp)
+    //        if(rsp.ok){
+    //         toast.remove('Removed')
+    //         router.refresh()
+    //        }
+    //        toast.remove('Removed')
+    //        router.refresh()
+    //     }catch(error:any){
+    //         console.log('client',error.message)
+    //     }
+    // },[id])
     // const handleChange =useCallback(async({id,operand,value}:{id:number,operand:string,value:number})=>{
     //     let newObject
     //     if(operand=='minus' && value ===1){
@@ -75,7 +79,7 @@ const CheckoutCard = ({item}:{item:Props}) => {
             </div>
             <div className='relative h-[3rem] w-[3rem] sm:h-[4rem] sm:w-[4rem] col-span-1 rounded-md overflow-hidden'>
                 <Image src={image} fill alt=''/>
-                <div className='absolute inset-0 hover:bg-primary/60 flex items-center justify-center group'>
+                <div className='absolute sm:hidden inset-0 hover:bg-primary/60 flex items-center justify-center group'>
                     <MdCancel onClick={()=>handleDelete(id)} className='text-primary/10   group-hover:text-red-500 cursor-pointer' size={28}/>
             </div>
             </div>

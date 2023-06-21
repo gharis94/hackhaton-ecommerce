@@ -2,16 +2,18 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 type Props={
     items:string;
     in_transit:boolean;
     is_deliverd:boolean;
     id:number;
+    mutate:any
 }
 
 
-const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd}) => {
+const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd,mutate}) => {
     const [state,setState] = useState<any>([])  
     const router = useRouter()
     
@@ -26,7 +28,7 @@ const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd}) => {
             key:(e.target as HTMLInputElement).name,
             value:(e.target as HTMLInputElement).value ==='true' ? true:false
         }
-        console.log(data)
+
         try{
             const rsp = await fetch('api/orders',{
              method:'PUT',
@@ -35,9 +37,11 @@ const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd}) => {
              },
              body: JSON.stringify(data) 
             })
-            console.log(rsp)
+
             if(rsp.ok){
-                router.refresh()
+                //router.refresh()
+                toast.success('Success')
+                mutate()
             }
         }catch(err:any){
             console.log(err.message)
@@ -45,7 +49,7 @@ const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd}) => {
     },[id])
 
   return (
-    <div className='grid grid-cols-5'>
+    <div className='grid grid-cols-5 border-b-[1px] pb-1 px-2 border-neutral-300'>
         <div className='col-span-2 ' >
             {state.length>0 && state.map((x:any)=>(
                 <div key={x.img} className='flex  items-center space-x-2'>
@@ -62,7 +66,7 @@ const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd}) => {
                 name='in_transit'
                 value='true'
                 disabled={in_transit}
-                className='col-span-1'
+                className='col-span-1 cursor-pointer'
                 type='checkbox'
                 onChange={(e)=>handleCheck(e)}
                 />
@@ -73,7 +77,7 @@ const ListComponent:React.FC<Props> = ({id,items,in_transit,is_deliverd}) => {
                 name='is_deliverd'
                 value='true'
                 disabled={!in_transit || is_deliverd}
-                className='col-span-1'
+                className='col-span-1 cursor-pointer'
                 type='checkbox'
                 onChange={(e)=>handleCheck(e)}
                 />
