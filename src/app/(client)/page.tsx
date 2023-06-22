@@ -5,7 +5,7 @@ import {Toaster} from 'react-hot-toast'
 
 export default function Home() {
   return (
-    <main className="flex gap-4 max-w-[1250px] mb-4 mx-auto sm:px-10 flex-col">      
+    <main className="flex gap-4 max-w-[1250px] mb-10 mx-auto sm:px-10 flex-col">      
       <Banner/>      
       <MainComponent/>
       <HomeProductListComponent title='Best Seller'   type='bestSeller'/>
