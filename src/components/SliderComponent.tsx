@@ -23,7 +23,7 @@ const SliderComponent:React.FC<Props> = ({data}) => {
     <Swiper
         className='mt-2'
         spaceBetween={10}
-        
+        style={{paddingTop:'1rem',paddingBottom:'1rem'}}
         slidesPerView={width<450? 1: width<550?2: width<800? 3:4}          
         >
           {

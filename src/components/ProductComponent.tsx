@@ -56,9 +56,9 @@ const ProductComponent = ({item}:{item:Props}) => {
   // },[data])
 
   return (
-    <div className='h-[18rem] sm:h-[16rem] bg-white bg-opacity-30  backdrop-blur-lg drop-shadow-md w-[16rem] sm:w-[13rem] rounded-md overflow-hidden'>
+    <div className='h-[18rem] sm:h-[16rem] bg-white bg-opacity-100  drop-shadow-md w-[16rem] pb-2 border-[1px] border-neutral-200 sm:w-[14rem] rounded-md overflow-hidden'>
         <div className='bg-black h-2/3 relative'>
-          <Image src={item?.images[0]} alt='' fill/>
+          <Image className='object-cover' src={item?.images[0]} alt='' fill/>
         </div>
         <div className='px-2 flex h-1/3 py-2 flex-col justify-between'>
             <div className='flex flex-col justify-between '>

@@ -17,7 +17,7 @@ const getData =async(type:{bestSeller:boolean,trending:boolean})=>{
       price,
       slug,
       _id
-    } `)
+    } `,{next:{revalidate:6}})
     return rsp
   }catch(error){
     console.log(error)
@@ -29,7 +29,7 @@ const HomeProductListComponent=async ({title,type}:{title:string,type:string})=>
  
   return (
     <div>
-        <div className='flex justify-between border-b-2 pb-2 border-neutral-300 px-4 sm:px-0'>
+        <div className='flex justify-between border-b-2 pt-2 pb-2 border-neutral-300 px-4 sm:px-0'>
             <h2 className='text-lg md:text-3xl font-semibold'>{title}</h2>
             <Link href={title==='Best Seller'?'/bestSeller':'/trending'} className='flex items-center space-x-2 text-primary'> <span>View All</span> <BsFillArrowRightCircleFill/> </Link>
         </div>
